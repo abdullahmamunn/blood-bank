@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\BloodRequest;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BloodRequestController extends Controller
 {
@@ -32,4 +34,11 @@ class BloodRequestController extends Controller
         return back();
 
      }
+
+    public function viewRequest($id)
+    {
+        $view_request = BloodRequest::findOrFail($id);
+        $user = User::where('id',Auth::user()->id)->first();
+        return view('view-request',compact('view_request','user'));
+    }
 }

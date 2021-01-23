@@ -27,10 +27,10 @@ class DonerController extends Controller
         return back();
     }
 
-    public function index()
+    public function donorLists()
     {
-        $allDonors = Doner::all();
-        return view('home',compact($allDonors));
+        $allDonors = Doner::orderBy('last_donate','desc')->paginate(5);
+        return view('donor-list',compact('allDonors'));
     }
 
 }

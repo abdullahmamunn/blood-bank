@@ -3,6 +3,21 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+        <div class="col-md-4">
+           <div class="card">
+               <div class="card-header">Sidebar</div>
+               <div class="card-body">
+                   <ul>
+                       <li>
+                           <a href="">Request list</a>
+                       </li>
+                       <li>
+                           <a href="{{route('all-donors-list')}}">Donor list</a>
+                       </li>
+                   </ul>
+               </div>
+           </div>
+        </div>
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">User Dashboard</div>
@@ -17,46 +32,10 @@
                     You are logged in as User!
                         <a href="{{route('user.logout')}}">User Logout</a> --}}
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#donateBlood">
-                           Donate Blood
-                        </button>
+
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#requestBlood">
                            Request Blood
                          </button>
-
-                        <!-- Modal for donate blood-->
-                        <div class="modal fade" id="donateBlood" tabindex="-1" role="dialog" aria-labelledby="donateBlood" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title" id="">Donate Blood</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{route('user-donate')}}" method="post"> 
-                                        @csrf
-                                        <div class="form-group">
-                                            <label>Name</label>
-                                            <input type="text" name="donor_name" value="{{$user->name}}" class="form-control">
-                                            <input type="hidden" name="user_id" value="{{$user->id}}" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Blood group</label>
-                                            <input type="text" name="blood_grp" value="{{$user->blood_grp}}" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Last Donate</label>
-                                            <input type="date" name="last_donate" class="form-control">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary float-right">Save changes</button>
-                                    </form>
-                                </div>
-
-                            </div>
-                            </div>
-                        </div>
 
                          <!-- Modal for Request blood-->
                          <div class="modal fade" id="requestBlood" tabindex="-1" role="dialog" aria-labelledby="donateBlood" aria-hidden="true">
@@ -118,30 +97,44 @@
                         </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-8">
             <div class="card-body mt-2">
-                <h2 class="text-center">Donor List</h2>
+                <h1 class="text-center">All Blood Requests</h1>
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>Donor Name</th>
-                        <th>Blood Group</th>
-                        <th>Last Donate</th>
+                        <th>User name</th>
+                        <th>Blood group</th>
+                        <th>Location</th>
+                        <th>phone</th>
+                        <th>Patient relative</th>
+                        <th>Require time</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($allDonors as $donors)
-                    <tr>
-                        <td>{{$donors->donor_name}}</td>
-                        <td>{{$donors->blood_grp}}</td>
-                        <td>{{$donors->last_donate}}</td>
-                    </tr>
+                    @foreach($allRequests as $request)
+                        <tr>
+                            <td>{{$request->name}}</td>
+                            <td>{{$request->blood_grp}}</td>
+                            <td>{{$request->location}}</td>
+                            <td>{{$request->phone}}</td>
+                            <td>{{$request->patient}}</td>
+                                @if($request->time > 1)
+                                  <td>{{$request->time}} days</td>
+                                @else
+                                  <td>{{$request->time}} day</td>
+                                @endif
+                            <td>
+                                <a href="{{route('view-request',$request->id)}}" class="btn btn-primary">view</a>
+                            </td>
+
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
+        {{ $allRequests->links() }}
     </div>
 </div>
 @endsection
