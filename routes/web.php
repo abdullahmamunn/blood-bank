@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 
@@ -29,7 +29,8 @@ Route::group(['prefix'=>'admin'],function(){
     Route::post('password/reset', 'Admin\ResetPasswordController@reset');
 
     //all user list
-    Route::get('/all-users','AdminController@userList')->name('all-user');
+    Route::get('/all-user','AdminController@userList')->name('all-user');
+    Route::get('/all-donor','AdminController@donorList')->name('all-donor');
     Route::get('/all-request','AdminController@index')->name('all-request');
 });
 

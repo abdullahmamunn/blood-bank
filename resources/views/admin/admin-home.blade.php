@@ -8,12 +8,20 @@
                     <div class="card-header">Admin Dashboard</div>
                     <div class="card-body">
                       <ul>
-                          <li>
-                              <a href="{{route('all-user')}}">User List</a>
-                          </li>
-                          <li>
-                              <a href="{{route('all-request')}}">Blood Request</a>
-                          </li>
+                          @if($allRequests)
+                              <li>
+                                  <a href="{{route('all-user')}}">User Lists</a>
+                              </li>
+                              <li>
+                                  <a href="{{route('all-donor')}}">Donor Lists</a>
+                              </li>
+                              @else
+                              <li>
+                                  <a href="{{route('all-request')}}">Blood Requests</a>
+                              </li>
+
+                          @endif
+
                       </ul>
                     </div>
                 </div>
@@ -42,7 +50,11 @@
                                     <td>{{$request->location}}</td>
                                     <td>{{$request->phone}}</td>
                                     <td>{{$request->patient}}</td>
-                                    <td>{{$request->time}} days</td>
+                                    @if($request->time > 1)
+                                        <td>{{$request->time}} days</td>
+                                    @else
+                                        <td>{{$request->time}} day</td>
+                                    @endif
                                     <td>
                                         <a href="" class="btn btn-primary">view</a>
                                     </td>
@@ -53,6 +65,7 @@
                             </table>
                         </div>
                 </div>
+                {{$allRequests->links()}}
             </div>
         </div>
         <div class="row justify-content-center">

@@ -75,7 +75,7 @@
                                             <input type="text" name="blood_grp" value="{{$user->blood_grp}}" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label>Last Donate</label>
+                                            <label>Donate Date</label>
                                             <input type="date" name="last_donate" class="form-control">
                                         </div>
                                         <button type="submit" class="btn btn-primary float-right">Save changes</button>

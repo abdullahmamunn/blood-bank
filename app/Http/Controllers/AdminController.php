@@ -17,13 +17,19 @@ class AdminController extends Controller
 
     public function index()
     {
-        $allRequests = BloodRequest::all();
+        $allRequests = BloodRequest::orderBy('created_at','desc')->paginate(5);
         return view('admin.admin-home',compact('allRequests'));
+    }
+
+    public function donorList()
+    {
+        $allDonors = Doner::orderBy('last_donate','desc')->paginate(5);
+        return view('admin.all-donors',compact('allDonors'));
     }
 
     public function userList()
     {
-        $allUsers = Doner::all();
-        return view('admin.all-users',compact('allUsers'));
+        $users = User::orderBy('created_at','desc')->paginate(5);
+        return view('admin.all-user',compact('users'));
     }
 }

@@ -8,19 +8,25 @@
                     <div class="card-header">Admin Dashboard</div>
                     <div class="card-body">
                       <ul>
-                          <li>
-                              <a href="{{route('all-user')}}">User List</a>
-                          </li>
-                          <li>
-                              <a href="{{route('all-request')}}">Blood Request</a>
-                          </li>
+                          @if($allDonors)
+                              <li>
+                                  <a href="{{route('all-user')}}">User Lists</a>
+                              </li>
+                              <li>
+                                  <a href="{{route('all-request')}}">Blood Requests</a>
+                              </li>
+                          @else
+                              <li>
+                                  <a href="{{route('all-donor')}}">Donor Lists</a>
+                              </li>
+                          @endif
                       </ul>
                     </div>
                 </div>
             </div>
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">All Donor list</div>
+                    <div class="card-header">All Donor lists</div>
                         <div class="card-body">
                            <table class="table table-bordered">
                                <thead>
@@ -33,14 +39,14 @@
                                </tr>
                                </thead>
                                <tbody>
-                               @foreach($allUsers as $users)
+                               @foreach($allDonors as $donor)
                                <tr>
-                                   <td>{{$users->user->name}}</td>
-                                   <td>{{$users->blood_grp}}</td>
-                                   <td>{{$users->last_donate}}</td>
-                                   <td>{{$users->user->phone}}</td>
+                                   <td>{{$donor->user->name}}</td>
+                                   <td>{{$donor->blood_grp}}</td>
+                                   <td>{{$donor->last_donate}}</td>
+                                   <td>{{$donor->user->phone}}</td>
                                    <td>
-                                       {{$users->user->district}}
+                                       {{$donor->user->district}}
                                    </td>
 
                                </tr>
@@ -49,6 +55,7 @@
                            </table>
                         </div>
                 </div>
+                {{$allDonors->links()}}
             </div>
         </div>
         <div class="row justify-content-center">
