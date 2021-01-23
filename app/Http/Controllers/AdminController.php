@@ -2,27 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\BloodRequest;
+use App\Doner;
+use App\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         $this->middleware('auth:admin');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('admin/admin_home');
+        $allRequests = BloodRequest::all();
+        return view('admin.admin-home',compact('allRequests'));
+    }
+
+    public function userList()
+    {
+        $allUsers = Doner::all();
+        return view('admin.all-users',compact('allUsers'));
     }
 }
