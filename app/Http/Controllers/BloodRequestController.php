@@ -11,11 +11,11 @@ class BloodRequestController extends Controller
 {
     public function store(Request $request)
     {
-//        return $request->all();
+//       return $request->all();
         $validated = $request->validate([
             'name' => 'required',
             'user_id' => 'required',
-            'blood_grp' => 'required',
+            'blood_group' => 'required',
             'location' => 'required',
             'phone' => 'required',
             'patient' => 'required',
@@ -25,7 +25,7 @@ class BloodRequestController extends Controller
         $request_blood = new BloodRequest();
         $request_blood->name = $request->name;
         $request_blood->user_id = $request->user_id;
-        $request_blood->blood_grp = $request->blood_grp;
+        $request_blood->blood_group = $request->blood_group;
         $request_blood->location = $request->location;
         $request_blood->phone = $request->phone;
         $request_blood->patient = $request->patient;

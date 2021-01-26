@@ -27,20 +27,30 @@
                             <th>Donor Name</th>
                             <th>Blood Group</th>
                             <th>Last Donate</th>
+                            <th>Next Donate</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($allDonors as $donors)
+{{--                            $created = \Carbon\Carbon::parse( $donors->created_at )--}}
+{{--                            $expire_dt  = $created_date->addDays(90)->toDayDateTimeString();--}}
+
+                            @php
+                                $created = \Carbon\Carbon::parse( $donors->created_at );
+                            @endphp
                             <tr>
                                 <td>{{$donors->donor_name}}</td>
                                 <td>{{$donors->blood_grp}}</td>
-                                <td>{{$donors->last_donate}}</td>
-                            </tr>
+                                <td>{{$created->toFormattedDateString()}}</td>
+                                <td>{{$created->addDays(90)->toFormattedDateString()}}</td>
+
+                             </tr>
                         @endforeach
+
                         </tbody>
-                    </table>
-                </div>
-                {{$allDonors->links()}}
+    </table>
+</div>
+{{$allDonors->links()}}
             </div>
 
         </div>

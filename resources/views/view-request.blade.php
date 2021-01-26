@@ -29,7 +29,7 @@
                         </tr>
                         <tr>
                             <th>Blood Group</th>
-                            <td>{{$view_request->blood_grp}}</td>
+                            <td>{{\App\Files\BloodGroups::$groups[$view_request->blood_group]}}</td>
                         </tr>
                         <tr>
                             <th>Location</th>
@@ -45,7 +45,21 @@
                         </tr>
                         <tr>
                             <th>Time Frame </th>
-                            <td>{{$view_request->time}}</td>
+                            @if($view_request->time >1)
+                                <td>{{$view_request->time}} days</td>
+                            @else
+                                <td>{{$view_request->time}} day</td>
+                            @endif
+
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            @if($view_request->status == 0)
+                                <td class="text-warning bg-dark"> <b>Not donated yet</b></td>
+                                @else
+                                <td class="text-success bg-dark"><b>Done</b></td>
+                            @endif
+
                         </tr>
                         </thead>
                     </table>
@@ -63,7 +77,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{route('user-donate')}}" method="post">
+                                    <form action="{{route('user-donate',$view_request->id)}}" method="post">
                                         @csrf
                                         <div class="form-group">
                                             <label>Name</label>
@@ -72,11 +86,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Blood group</label>
-                                            <input type="text" name="blood_grp" value="{{$user->blood_grp}}" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Donate Date</label>
-                                            <input type="date" name="last_donate" class="form-control">
+                                            <input type="text" name="blood_group" value="{{\App\Files\BloodGroups::$groups[$user->blood_group]}}" class="form-control" readonly>
                                         </div>
                                         <button type="submit" class="btn btn-primary float-right">Save changes</button>
                                     </form>

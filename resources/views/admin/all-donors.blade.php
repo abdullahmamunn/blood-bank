@@ -43,7 +43,7 @@
                                <tr>
                                    <td>{{$donor->user->name}}</td>
                                    <td>{{$donor->blood_grp}}</td>
-                                   <td>{{$donor->last_donate}}</td>
+                                   <td>{{$donor->created_at}}</td>
                                    <td>{{$donor->user->phone}}</td>
                                    <td>
                                        {{$donor->user->district}}

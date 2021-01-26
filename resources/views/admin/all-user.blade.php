@@ -44,9 +44,9 @@
                             @foreach($users as $user)
                                 <tr>
                                     <td>{{$user->name}}</td>
-                                    <td>{{$user->blood_grp}}</td>
+                                    <td>{{ \App\Files\BloodGroups::$groups[$user->blood_group] }}</td>
                                     <td>{{$user->phone}}</td>
-                                    <td>{{$user->district}}</td>
+                                    <td>{{$user->address}}</td>
                                     <td>
                                         <a href="" class="btn btn-primary">view</a>
                                     </td>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Files\BloodGroups;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -41,6 +42,18 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return view('auth.register', [
+            'groups' => BloodGroups::$groups
+        ]);
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -48,17 +61,16 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
              'name' => 'required|string|max:255',
              'email' => 'required|string|email|max:255|unique:users',
              'password' => 'required|string|min:6|confirmed',
              'phone' => 'required|unique:users',
-             'blood_grp'=> 'required',
+             'blood_group'=> 'required',
              'religion' => 'required',
              'weight' => 'required',
-             'union' => 'required',
-             'post_office' => 'required',
-             'police_station' => 'required',
+             'address' => 'required',
         ]);
     }
 
@@ -76,13 +88,11 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'],
             'dob' => $data['dob'],
-            'blood_grp'=> $data['blood_grp'],
+            'blood_group'=> $data['blood_group'],
             'religion' => $data['religion'],
             'weight' => $data['weight'],
-            'union' => $data['union'],
-            'post_office' => $data['post_office'],
-            'police_station' => $data['police_station'],
-            'district' => $data['district'],
+            'address' => $data['address'],
+
         ]);
     }
 }

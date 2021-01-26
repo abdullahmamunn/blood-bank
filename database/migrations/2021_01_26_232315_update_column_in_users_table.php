@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDonersTable extends Migration
+class UpdateColumnInUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateDonersTable extends Migration
      */
     public function up()
     {
-        Schema::create('doners', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedBigInteger('user_id');
-            $table->string('donor_name');
-            $table->string('blood_grp');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->renameColumn('blood_grp', 'blood_group');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateDonersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('doners');
+        Schema::table('users', function (Blueprint $table) {
+            $table->renameColumn('blood_group', 'blood_grp');
+        });
     }
 }

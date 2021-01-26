@@ -41,10 +41,11 @@ Route::get('user/logout', 'Auth\LoginController@userLogout')->name('user.logout'
 
  Route::group(['prefix'=>'/'],function(){
      Route::get('all/request/list','BloodRequestController@index');
-     Route::post('user-donate','DonerController@store')->name('user-donate');
+     Route::post('user-donate/{id}','DonerController@store')->name('user-donate');
      Route::post('blood-request','BloodRequestController@store')->name('blood-request');
      Route::get('all-donors','DonerController@donorLists')->name('all-donors-list');
      Route::get('view-request/{id}','BloodRequestController@viewRequest')->name('view-request');
+     Route::get('time','DefaultController@index')->name('time-date');
 
  });
 

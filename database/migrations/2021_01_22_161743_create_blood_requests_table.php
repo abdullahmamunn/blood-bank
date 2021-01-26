@@ -22,14 +22,13 @@ class CreateBloodRequestsTable extends Migration
             $table->string('phone');
             $table->string('patient');
             $table->string('time');
-
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
      * @return void
      */
     public function down()

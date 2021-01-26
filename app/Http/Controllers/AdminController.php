@@ -23,7 +23,7 @@ class AdminController extends Controller
 
     public function donorList()
     {
-        $allDonors = Doner::orderBy('last_donate','desc')->paginate(5);
+        $allDonors = Doner::orderBy('created_at','desc')->paginate(5);
         return view('admin.all-donors',compact('allDonors'));
     }
 

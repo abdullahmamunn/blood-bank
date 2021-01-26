@@ -1,9 +1,13 @@
 @extends('layouts.app')
-
+<style>
+    ul{
+        list-style-type: none;
+    }
+</style>
 @section('content')
-    <div class="container">
+    <div class="">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <div class="card">
                     <div class="card-header">Admin Dashboard</div>
                     <div class="card-body">
@@ -26,27 +30,31 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">All Blood Requests</div>
                         <div class="card-body">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered text-center">
                                 <thead>
                                 <tr>
+                                    <th>SL</th>
                                     <th>User name</th>
-                                    <th>Blood group</th>
+                                    <th style="width: 15px">Blood group</th>
                                     <th>Location</th>
                                     <th>phone</th>
-                                    <th>Patient relative</th>
-                                    <th>Require time</th>
+                                    <th>Patient </th>
+                                    <th>Require Time</th>
+                                    <th>Requested at</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($allRequests as $request)
                                 <tr>
+                                    <td>{{$loop->index+1}}</td>
                                     <td>{{$request->name}}</td>
-                                    <td>{{$request->blood_grp}}</td>
+                                    <td>{{\App\Files\BloodGroups::$groups[$request->blood_group]}}</td>
                                     <td>{{$request->location}}</td>
                                     <td>{{$request->phone}}</td>
                                     <td>{{$request->patient}}</td>
@@ -54,6 +62,12 @@
                                         <td>{{$request->time}} days</td>
                                     @else
                                         <td>{{$request->time}} day</td>
+                                    @endif
+                                    <td>{{Carbon\Carbon::parse($request->created_at)->diffForHumans()}}</td>
+                                    @if($request->status == 0)
+                                        <td>False</td>
+                                    @else
+                                        <td>Done</td>
                                     @endif
                                     <td>
                                         <a href="" class="btn btn-primary">view</a>

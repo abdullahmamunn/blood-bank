@@ -77,16 +77,11 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label">{{ __('Blood Group') }}</label>
                             <div class="col-md-6">
-                               <select class="form-control" name="blood_grp" id="">
+                               <select class="form-control" name="blood_group" id="">
                                    <option value="">Select one</option>
-                                   <option value="A+">A+</option>
-                                   <option value="A-">A-</option>
-                                   <option value="B+">B+</option>
-                                   <option value="B-">B-</option>
-                                   <option value="AB+">AB+</option>
-                                   <option value="AB-">AB-</option>
-                                   <option value="O+">O+</option>
-                                   <option value="O-">O-</option>
+                                   @foreach($groups as $key => $group)
+                                   <option value="{{ $key }}">{{ $group }}</option>
+                                   @endforeach
                                </select>
                             </div>
                         </div>
@@ -107,25 +102,11 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label">{{ __('Address') }}</label>
                         
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control" name="union" placeholder="Union">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="address" placeholder="address">
                                     </div>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control" name="post_office" placeholder="Post Office">
-                                    </div>
-                   
                         </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 col-form-label"></label>
-                        
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control" name="police_station" placeholder="Police Station">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control" name="district" placeholder="District">
-                                    </div>
-                   
-                        </div>
+
                         <div class="form-group row mb-0">
                             <label for="" class="col-md-3 col-from-label"></label>
                             <div class="col-md-6">
